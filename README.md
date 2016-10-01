@@ -1,0 +1,1 @@
+This sample is intended to be used in the DEDAM postgraduate course. Its purpose is to provide a example of bad written code that to illustrate why readability is important, and so it can be used as a refactoring exercise.
