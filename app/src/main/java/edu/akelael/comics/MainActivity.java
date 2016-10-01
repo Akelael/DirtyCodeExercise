@@ -13,7 +13,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-// Class created by someone learning chinese? I'm not sure
+// Class created by someone learning chinese? I'mMap not sure
 // Updated by Unknown
 //
 // WARNING!!! Be careful about building the Retrofit Object. It requires to be executed in the same order it has been developed. Otherwise, weird things can happen or the app can crash
@@ -28,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
     // Principal Activity of this app
 
     // Private fields
-    private RecyclerView m_l;
-    private Map<String, String> m;
+    private RecyclerView mList;
+    private Map<String, String> mMap;
     private Retrofit.Builder b;
 
     // Public fields
@@ -55,19 +55,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // set recyclerview
-        m_l = (RecyclerView) findViewById(R.id.comic_list);
+        mList = (RecyclerView) findViewById(R.id.comic_list);
 
         // Create comic adapter
         final ComicAdapter a = new ComicAdapter();
 
         // set adapter
-        m_l.setAdapter(a);
+        mList.setAdapter(a);
 
         // Create hashmap
-        m = new HashMap<>();
-        m.put("ts", "ts");
-        m.put("apikey", "apikey");
-        m.put("hash", "hash");
+        mMap = new HashMap<>();
+        mMap.put("ts", "ts");
+        mMap.put("apikey", "apikey");
+        mMap.put("hash", "hash");
 
         // update marvel
 
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         b.addConverterFactory(GsonConverterFactory.create());
 
         // call marvel updating. Don't forget to call it
-        marvel_updating(a, m, b);
+        marvel_updating(a, mMap, b);
     }
 
     /**
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
      * enqueue. It then notifies data set changed
      *
      * @param a ComicAdapter a
-     * @param m Map m
+     * @param m Map mMap
      * @param b Builder b
      */
     private void marvel_updating(final ComicAdapter a, Map<String, String> m, Retrofit.Builder b) {
