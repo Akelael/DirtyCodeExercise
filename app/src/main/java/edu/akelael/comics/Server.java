@@ -9,9 +9,6 @@ import retrofit2.http.QueryMap;
 
 public interface Server {
 
-    /**
-     * Get all the comics from a specific character.
-     */
     @GET("characters/{characterId}/comics")
-    Call<Marvel> amazingspiderman(@Path("characterId") int characterId, @QueryMap Map<String, String> digest);
+    Call<Marvel> getComics(@Path("characterId") int characterId, @QueryMap Map<String, String> digest);
 }

@@ -13,121 +13,100 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-// Class created by someone learning chinese? I'mMap not sure
-// Updated by Unknown
-//
-// WARNING!!! Be careful about building the Retrofit Object. It requires to be executed in the same order it has been developed. Otherwise, weird things can happen or the app can crash
-
-/**
- * 耶穌巴列斯特羅
- *
- * 這是應用程序的主要活動。它顯示在主屏幕和AppCompatActivity繼承
- */
 public class MainActivity extends AppCompatActivity {
-    // Main Activity
-    // Principal Activity of this app
+    private RecyclerView mComicsList;
+    private Map<String, String> mComicMap;
+    private Retrofit.Builder mBuilder;
+    private Retrofit mRetrofit;
+    private Server mServer;
+    private Call<Marvel> mCallMarvel;
+    private static final String MARVEL_GATEWAY = "http://gateway.marvel.com/v1/public/";
+    private static final int AMAZING_SPIDERMAN = 1010733;
+    private static final int RESPONSE_OK = 200;
 
-    // Private fields
-    private RecyclerView mList;
-    private Map<String, String> mMap;
-    private Retrofit.Builder b;
-
-    // Public fields
-    public Retrofit r;
-    public Server s;
-
-    // Nothing fields
-    private Call<Marvel> c;
-
-    /**
-     * 在拉曼恰，名字我不記得了，時間不長，因為住在離那些槍和盾古代，精益黑客和竊喜靈獅的貴族村
-     *
-     * @param savedInstanceState 堂吉訶德
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // on create
-
-        // call super always
         super.onCreate(savedInstanceState);
-
-        // setting the view
         setContentView(R.layout.activity_main);
-
-        // set recyclerview
-        mList = (RecyclerView) findViewById(R.id.comic_list);
-
-        // Create comic adapter
-        final ComicAdapter a = new ComicAdapter();
-
-        // set adapter
-        mList.setAdapter(a);
-
-        // Create hashmap
-        mMap = new HashMap<>();
-        mMap.put("ts", "ts");
-        mMap.put("apikey", "apikey");
-        mMap.put("hash", "hash");
-
-        // update marvel
-
-        // Create builder
-        b = new Retrofit.Builder();
-        b.baseUrl("http://gateway.marvel.com/v1/public/");
-        b.addConverterFactory(GsonConverterFactory.create());
-
-        // call marvel updating. Don't forget to call it
-        marvel_updating(a, mMap, b);
+        final ComicAdapter comicAdapter = new ComicAdapter();
+        setComicsList((RecyclerView) findViewById(R.id.comic_list));
+        getComicsList().setAdapter(comicAdapter);
+        setComicMap(new HashMap<String, String>());
+        setBuilder(new Retrofit.Builder());
+        marvel_updating(comicAdapter, getComicMap(), getBuilder());
     }
 
-    /**
-     * Method marvel_updating
-     * Class MainActivity
-     *
-     * author Unknown
-     * modified by Unknown
-     *
-     * This method receives a ComicAdapter, a Map and a Builder. Returns nothing.
-     * This method updates marvel
-     * This method generates a retrofit object and calls amazingcomics. It then calls
-     * enqueue. It then notifies data set changed
-     *
-     * @param a ComicAdapter a
-     * @param m Map mMap
-     * @param b Builder b
-     */
-    private void marvel_updating(final ComicAdapter a, Map<String, String> m, Retrofit.Builder b) {
-        // update
-
-        // build r
-        r = b.build();
-
-        // create s
-        s = r.create(Server.class);
-
-        // retrieve amazingcomics
-        c = s.amazingspiderman(1010733, m);
-
-        // enqueue amazingcomics call
-        c.enqueue(new Callback<Marvel>() {
+    private void marvel_updating(final ComicAdapter comicAdapter, Map<String, String> comicMap, Retrofit.Builder builder) {
+        setRetrofit(builder.build());
+        setServer(getRetrofit().create(Server.class));
+        setCallMarvel(getServer().getComics(AMAZING_SPIDERMAN, comicMap));
+        getCallMarvel().enqueue(new Callback<Marvel>() {
             @Override
-            public void onResponse(Call<Marvel> c, Response<Marvel> r) {
-                // Everything is ok
-                if (r.code() == 200) {
-
-                    // set
-                    a.setC(r.body().data.results);
-
-                    // notify data set changed
-                    a.notifyDataSetChanged();
+            public void onResponse(Call<Marvel> callMarvel, Response<Marvel> responseMarvel) {
+                if (responseMarvel.code() == RESPONSE_OK) {
+                    comicAdapter.setComics(responseMarvel.body().data.results);
+                    comicAdapter.notifyDataSetChanged();
                 }
-
+                else {
+                    onFailure(callMarvel, new Throwable("Things went wrong setting comics."));
+                }
             }
 
             @Override
-            public void onFailure(Call<Marvel> call, Throwable t) {
-                //TODO do something here
-            }
+            public void onFailure(Call<Marvel> call, Throwable t) {}
         });
+    }
+
+    private Map<String, String> getComicMap() {
+        return mComicMap;
+    }
+
+    private void setComicMap(Map<String, String> hashMap) {
+        mComicMap = hashMap;
+        mComicMap.put("ts", "ts");
+        mComicMap.put("apikey", "apikey");
+        mComicMap.put("hash", "hash");
+    }
+
+    private Retrofit.Builder getBuilder() {
+        return mBuilder;
+    }
+
+    private void setBuilder(Retrofit.Builder builder) {
+        mBuilder = builder;
+        mBuilder.baseUrl(MARVEL_GATEWAY);
+        mBuilder.addConverterFactory(GsonConverterFactory.create());
+    }
+
+    public Server getServer() {
+        return mServer;
+    }
+
+    public void setServer(Server server) {
+        mServer = server;
+    }
+
+    public Retrofit getRetrofit() {
+        return mRetrofit;
+    }
+
+    public void setRetrofit(Retrofit retrofit) {
+        mRetrofit = retrofit;
+    }
+
+    public Call<Marvel> getCallMarvel() {
+        return mCallMarvel;
+    }
+
+    public void setCallMarvel(Call<Marvel> callMarvel) {
+        mCallMarvel = callMarvel;
+    }
+
+    public RecyclerView getComicsList() {
+        return mComicsList;
+    }
+
+    public void setComicsList(RecyclerView comicsList) {
+        mComicsList = comicsList;
     }
 }
