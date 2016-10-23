@@ -6,12 +6,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import edu.akelael.comics.Marvel.Data.Comic;
-
 class ComicViewHolder extends RecyclerView.ViewHolder {
     ImageView thumbnail;
     TextView title;
     Comic item;
-
     ComicViewHolder(View itemView) {
         super(itemView);
         this.thumbnail = (ImageView) itemView.findViewById(R.id.thumbnail);
