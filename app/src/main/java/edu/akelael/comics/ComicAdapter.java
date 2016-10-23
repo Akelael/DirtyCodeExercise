@@ -8,18 +8,15 @@ import android.view.ViewGroup;
 
 import com.squareup.picasso.Picasso;
 
-import edu.akelael.comics.Marvel.Data.Comic;
-
 import java.util.Collections;
 import java.util.List;
 
+import edu.akelael.comics.Marvel.Data.Comic;
 class ComicAdapter extends RecyclerView.Adapter<ComicViewHolder> {
     private List<Comic> comics;
-
     ComicAdapter() {
         this.comics = Collections.emptyList();
     }
-
     @Override
     public ComicViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
@@ -27,7 +24,6 @@ class ComicAdapter extends RecyclerView.Adapter<ComicViewHolder> {
         View view = layoutInflater.inflate(R.layout.comic_list_content, parent, false);
         return new ComicViewHolder(view);
     }
-
     @Override
     public void onBindViewHolder(ComicViewHolder holder, int position) {
         final Comic comic = comics.get(position);
@@ -39,7 +35,6 @@ class ComicAdapter extends RecyclerView.Adapter<ComicViewHolder> {
                 .centerInside()
                 .into(holder.thumbnail);
     }
-
     @Override
     public int getItemCount() {
         int count = 0;
@@ -48,7 +43,6 @@ class ComicAdapter extends RecyclerView.Adapter<ComicViewHolder> {
         }
         return count;
     }
-
     public void setC(List<Marvel.Data.Comic> comics) {
         this.comics = comics;
     }
