@@ -13,15 +13,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-// Class created by someone learning chinese? I'mMap not sure
-// Updated by Unknown
-//
-// WARNING!!! Be careful about building the Retrofit Object. It requires to be executed in the same order it has been developed. Otherwise, weird things can happen or the app can crash
-
 /**
- * 耶穌巴列斯特羅
- *
- * 這是應用程序的主要活動。它顯示在主屏幕和AppCompatActivity繼承
+ * THE MAN WHO PASSES THE SENTENCE SHOULD SWING THE SWORD.
  */
 public class MainActivity extends AppCompatActivity {
     // Main Activity
@@ -40,9 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private Call<Marvel> c;
 
     /**
-     * 在拉曼恰，名字我不記得了，時間不長，因為住在離那些槍和盾古代，精益黑客和竊喜靈獅的貴族村
-     *
-     * @param savedInstanceState 堂吉訶德
+     * BURN THEM ALL
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,20 +72,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Method marvel_updating
-     * Class MainActivity
-     *
-     * author Unknown
-     * modified by Unknown
-     *
-     * This method receives a ComicAdapter, a Map and a Builder. Returns nothing.
-     * This method updates marvel
-     * This method generates a retrofit object and calls amazingcomics. It then calls
-     * enqueue. It then notifies data set changed
-     *
-     * @param a ComicAdapter a
-     * @param m Map mMap
-     * @param b Builder b
+     * CHAOS ISN'T A PIT. CHAOS IS A LADDER.
      */
     private void marvel_updating(final ComicAdapter a, Map<String, String> m, Retrofit.Builder b) {
         // update
@@ -126,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Marvel> call, Throwable t) {
-                //TODO do something here
+                //TODO KILL ALL WHITE WALKERS
             }
         });
     }
