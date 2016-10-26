@@ -14,4 +14,7 @@ public interface Server {
      */
     @GET("characters/{characterId}/comics")
     Call<Marvel> amazingspiderman(@Path("characterId") int characterId, @QueryMap Map<String, String> digest);
+
+    @GET("got/{episode}/characters")
+    Call<GameOfThrones> charactersByEpisode(@Path("episode") int episode);
 }
